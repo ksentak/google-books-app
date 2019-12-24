@@ -6,7 +6,7 @@ import API from "../utils/API";
 class newSearch extends React.Component {
     state = {
         value: "",
-        books: []
+        books: [],
     };
 
     componentDidMount() {
@@ -30,9 +30,9 @@ class newSearch extends React.Component {
             .catch(err => console.error(err));
     };
 
-    handleInputChange = event => {
-        const name = event.target.name;
-        const value = event.target.value;
+    handleInputChange = data => {
+        const name = data.target.name;
+        const value = data.target.value;
         this.setState({
             [name]: value
         });
@@ -60,4 +60,4 @@ class newSearch extends React.Component {
     }
 }
 
-export default Search;
+export default newSearch;
