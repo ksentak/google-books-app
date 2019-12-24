@@ -9,12 +9,12 @@ function App() {
   return (
     <Router>
       <div>
-        <Nav />
+        <Nav/>
         <Switch>
-          <Route exact path="/" component={Search} />
-          <Route exact path="/search" component={Search} />
-          <Route exact path="/favorites" component={Favorite} />
-          <Route component={NoMatch} />
+          <Route exact path="/" component={Search}/>
+          <Route exact path="/search" component={Search}/>
+          <Route exact path="/favorites" component={Favorite}/>
+          <Route component={NoMatch}/>
         </Switch>
       </div>
     </Router>
