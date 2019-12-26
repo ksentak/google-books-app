@@ -1,0 +1,25 @@
+.fav {
+	background-color: #DB4437;
+	border: 2px solid #DB4437;
+	color: white;
+	margin: 2px;
+}
+
+.fav:hover {
+	background-color: white;
+	color: #DB4437;
+	border: 2px solid #DB4437;
+}
+
+.view {
+	background-color: #F4B400;
+	border: 2px solid #F4B400;
+	color: white;
+	margin: 2px;
+}
+
+.view:hover {
+	background-color: white;
+	color: #F4B400;
+	border: 2px solid #F4B400;
+}

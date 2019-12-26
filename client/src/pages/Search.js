@@ -1,50 +1,59 @@
-import React from "react";
+import React, { Component } from "react";
+import API from "../utils/API";
 import Search from "../components/Search";
 import Results from "../components/Results";
-import API from "../utils/API";
 
-class newSearch extends React.Component {
+class newSearch extends Component {
     state = {
-        value: "",
+        search: "",
         books: [],
+        error: "",
+        message: ""
     };
 
-    componentDidMount() {
-        this.searchBook();
+    handleInputChange = event => {
+        this.setState({ search: event.target.value })
     }
-
-    makeBook = bookData => {
-        return {
-            _id: bookData.id,
-            title: bookData.volumeInfo.title,
-            authors: bookData.volumeInfo.authors,
-            description: bookData.volumeInfo.description,
-            image: bookData.volumeInfo.imageLinks.thumbnail,
-            link: bookData.volumeInfo.previewLink
-        }
-    }
-
-    searchBook = query => {
-        API.getBook(query)
-            .then(res => this.setState({ books: res.data.items.map(bookData => this.makeBook(bookData)) }))
-            .catch(err => console.error(err));
-    };
-
-    handleInputChange = data => {
-        const name = data.target.name;
-        const value = data.target.value;
-        this.setState({
-            [name]: value
-        });
-    };
 
     handleFormSubmit = event => {
         event.preventDefault();
-        this.searchBook(this.state.search);
+        API.getBook(this.state.search)
+            .then(res => {
+                if (res.data.items === "error") {
+                    throw new Error(res.data.items);
+                }
+                else {
+                    let results = res.data.items
+                    results = results.map(result => {
+                        result = {
+                            key: result.id,
+                            id: result.id,
+                            title: result.volumeInfo.title,
+                            authors: result.volumeInfo.authors,
+                            description: result.volumeInfo.description,
+                            image: result.volumeInfo.imageLinks.thumbnail,
+                            link: result.volumeInfo.infoLink
+                        };
+                        return result;
+                    });
+                    this.setState({ books: results, error: "" })
+                };
+            })
+            .catch(err => this.setState({ error: err.items }));
     };
 
+    handleSavedButton = event => {
+        event.preventDefault();
+        console.log(this.state.books)
+        let savedBooks = this.state.books.filter(book => book.id === event.target.id)
+        savedBooks = savedBooks[0];
+        API.saveBook(savedBooks)
+            .then(this.setState({ message: alert("Your book is saved") }))
+            .catch(err => console.log(err))
+    };
     render() {
         return (
+
             <div>
                 <Search
                     search={this.state.search}
@@ -56,8 +65,8 @@ class newSearch extends React.Component {
                     <Results books={this.state.books} />
                 </div>
             </div>
-        )
-    }
-}
+        );
+    };
+};
 
 export default newSearch;
