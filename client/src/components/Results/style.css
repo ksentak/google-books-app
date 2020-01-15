@@ -1,14 +1,14 @@
 .fav {
-	background-color: #DB4437;
-	border: 2px solid #DB4437;
+	background-color: #0F9D58;
+	border: 2px solid #0F9D58;
 	color: white;
 	margin: 2px;
 }
 
 .fav:hover {
 	background-color: white;
-	color: #DB4437;
-	border: 2px solid #DB4437;
+	color: #0F9D58;
+	border: 2px solid #0F9D58;
 }
 
 .view {
